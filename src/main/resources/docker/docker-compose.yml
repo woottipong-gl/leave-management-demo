@@ -1,0 +1,17 @@
+version: "3.9"
+services:
+  lrmAxon:
+    hostname: 'axon'
+    container_name: 'axon'
+    image: axoniq/axonserver:2023.1.1-jdk-17-dev
+    ports:
+      - '8024:8024'
+      - '8124:8124'
+      - '8224:8224'
+    environment:
+      - TZ=Asia/Bangkok
+    volumes:
+      - "./axon/data:/data"
+      - "./axon/event:/eventdata"
+      - "./axon/config:/config:ro"
+    restart: unless-stopped
