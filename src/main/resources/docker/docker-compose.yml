@@ -1,8 +1,8 @@
 version: "3.9"
 services:
   lrmAxon:
-    hostname: 'axon'
-    container_name: 'axon'
+    hostname: 'lrm-axon'
+    container_name: 'lrm-axon'
     image: axoniq/axonserver:2023.1.1-jdk-17-dev
     ports:
       - '8024:8024'
@@ -10,8 +10,14 @@ services:
       - '8224:8224'
     environment:
       - TZ=Asia/Bangkok
-    volumes:
-      - "./axon/data:/data"
-      - "./axon/event:/eventdata"
-      - "./axon/config:/config:ro"
-    restart: unless-stopped
+    restart: always
+  lrmPostgres:
+    hostname: 'lrm-postgres'
+    container_name: 'lrm-postgres'
+    image: postgres:11
+    ports:
+      - "5430:5432"
+    environment:
+      - TZ=Asia/Bangkok
+      - POSTGRES_PASSWORD=1234
+    restart: always
